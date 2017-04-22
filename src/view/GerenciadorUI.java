@@ -21,10 +21,8 @@ public class GerenciadorUI {
 				//metodo de importacao dos dados
 				lerArquivo(matriz1, matriz2 , matriz3);				
 				verMatriz(matriz1);
-				
-				
+								
 	}//fecha main
-
 	
 	private static void lerArquivo(int[][] matriz1,int[][] matriz2,int[][]matriz3 ) {
 		
@@ -70,6 +68,68 @@ public class GerenciadorUI {
 			}//fecha for
 			System.out.print("\n");
 		}//fecha for
-	}//fecha verMatriz
+	}//fecha verMatriz	
 	
+	public static void gerenciaIlhas(int[][] matriz){
+	     int linha = 0;
+	     int coluna = 0;
+	            
+	        if(matriz[x][y] == 1){
+	            posicao = ""+x+y;
+	            if(validaPosicao(matriz, posicao)){
+	                identificaIlhas(matriz, x, y);
+	            }
+	        }         
+	 }// GERENCIA ILHAS
+
+	 
+	 /*método que valida se o método já passou pela posicao atual de x e y.
+	 Se não está gravada no arrayPosicoes, então o método identificaIlhas() pode ser executado*/
+	static boolean validaPosicao(int[][] matriz, String posicao){        
+	     for (int i = 0; i < arrayPosicoes.length; i++) {
+	         if(arrayPosicoes[i].equals(posicao)){
+	             return false;
+	         }
+	     }
+	     return true;
+	 } // VALIDAPOSICAO
+
+	     public static void identificaIlhas(int[][] matriz, int colunaX, int linhaY){
+	         int auxX = 0;
+	         int auxY = 0;
+	     
+	     salvaPosicaoMatriz("X-"+colunaX + "Y-"+linhaY);
+	     //verifica se a próxima coluna(x) à coluna atual é menor que o final da matriz
+	     if(colunaX+1 < x){
+	         
+	         //verifica se a primeira posicao da matriz é 1
+	         if((matriz[colunaX+1][linhaY] == 1)) {                
+	             auxX = colunaX+1;
+	             auxY = linhaY;
+	             identificaIlhas(matriz, auxX, linhaY);
+	             
+	     }
+	         if(matriz[colunaX][linhaY+1] == 1){
+	             auxX = colunaX;
+	             auxY = linhaY+1;
+	             identificaIlhas(matriz, colunaX, auxY);
+	         }    
+	     }
+
+	     else{
+	         linhaY++;
+	         colunaX = 0;
+	         identificaIlhas(matriz, colunaX, linhaY);
+	 }
+
+
+
+	 }//IDENTIFICA ILHAS
+
+	public static void salvaPosicaoMatriz(String posicao){
+	     
+	     arrayPosicoes[quantPosicoesArmazenadas] = posicao;
+	     quantPosicoesArmazenadas++;
+	}//fechar metodo
+
 }//fecha classe
